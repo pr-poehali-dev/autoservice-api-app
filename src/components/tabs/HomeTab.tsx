@@ -1,7 +1,9 @@
+import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import Icon from "@/components/ui/icon";
+import { NotificationCard } from "@/components/NotificationCard";
 
 interface Master {
   id: number;
@@ -18,6 +20,29 @@ interface HomeTabProps {
 }
 
 export const HomeTab = ({ setActiveTab, masters }: HomeTabProps) => {
+  const [notifications, setNotifications] = useState([
+    {
+      id: 1,
+      type: "ready" as const,
+      title: "Ваш автомобиль готов!",
+      message: "Замена масла и фильтров завершена. Автомобиль готов к выдаче.",
+      time: "10 минут назад",
+      carModel: "Toyota Camry"
+    },
+    {
+      id: 2,
+      type: "in_progress" as const,
+      title: "Работы в процессе",
+      message: "Диагностика двигателя в работе. Ожидаемое время готовности: 2 часа.",
+      time: "1 час назад",
+      carModel: "Honda Accord"
+    }
+  ]);
+
+  const handleCloseNotification = (id: number) => {
+    setNotifications(notifications.filter(n => n.id !== id));
+  };
+
   return (
     <div className="animate-fade-in">
       <div className="relative h-64 overflow-hidden">
@@ -34,6 +59,18 @@ export const HomeTab = ({ setActiveTab, masters }: HomeTabProps) => {
       </div>
 
       <div className="p-6 space-y-6">
+        {notifications.length > 0 && (
+          <div className="space-y-3">
+            {notifications.map((notification) => (
+              <NotificationCard
+                key={notification.id}
+                notification={notification}
+                onClose={handleCloseNotification}
+              />
+            ))}
+          </div>
+        )}
+
         <div className="grid grid-cols-2 gap-3">
           <Button
             onClick={() => setActiveTab("services")}
