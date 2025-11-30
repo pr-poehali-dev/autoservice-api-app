@@ -72,7 +72,7 @@ export const HomeTab = ({ setActiveTab }: HomeTabProps) => {
           />
         </div>
         <div className="absolute bottom-0 left-0 right-0 p-6 text-white">
-          <h1 className="text-3xl font-heading font-bold mb-2">АвтоМастер</h1>
+          <h1 className="text-3xl font-heading font-bold mb-2">HEVSR</h1>
           <p className="text-sm opacity-90">Профессиональный уход за вашим автомобилем</p>
         </div>
       </div>
