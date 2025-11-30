@@ -37,7 +37,7 @@ const Index = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-orange-50">
+    <div className="min-h-screen bg-gradient-to-br from-green-50 via-blue-50 to-cyan-50">
       <div className="max-w-md mx-auto bg-white min-h-screen shadow-xl">
         <TabsContent
           activeTab={activeTab}
