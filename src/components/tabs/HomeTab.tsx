@@ -64,6 +64,13 @@ export const HomeTab = ({ setActiveTab }: HomeTabProps) => {
           className="w-full h-full object-cover"
         />
         <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/30 to-transparent" />
+        <div className="absolute top-4 left-4 bg-white/95 backdrop-blur-sm rounded-2xl p-3 shadow-lg">
+          <img
+            src="https://cdn.poehali.dev/files/6366661c-f712-4802-9b11-27e5626aca36.png"
+            alt="HEVSR"
+            className="h-10 w-auto"
+          />
+        </div>
         <div className="absolute bottom-0 left-0 right-0 p-6 text-white">
           <h1 className="text-3xl font-heading font-bold mb-2">АвтоМастер</h1>
           <p className="text-sm opacity-90">Профессиональный уход за вашим автомобилем</p>
