@@ -1,27 +1,17 @@
 import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+
 import Icon from "@/components/ui/icon";
 import { NotificationCard } from "@/components/NotificationCard";
 import { notificationsApi } from "@/lib/api";
 import { useToast } from "@/hooks/use-toast";
 
-interface Master {
-  id: number;
-  name: string;
-  rating: number;
-  reviews: number;
-  specialty: string;
-  avatar: string;
-}
-
 interface HomeTabProps {
   setActiveTab: (tab: string) => void;
-  masters: Master[];
 }
 
-export const HomeTab = ({ setActiveTab, masters }: HomeTabProps) => {
+export const HomeTab = ({ setActiveTab }: HomeTabProps) => {
   const [notifications, setNotifications] = useState<any[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const { toast } = useToast();
@@ -125,45 +115,6 @@ export const HomeTab = ({ setActiveTab, masters }: HomeTabProps) => {
             <span className="font-medium">Профиль</span>
           </Button>
         </div>
-
-        <Card className="border-2 border-primary/20">
-          <CardHeader className="pb-3">
-            <CardTitle className="font-heading flex items-center gap-2">
-              <Icon name="Star" className="text-primary" size={20} />
-              Наши мастера
-            </CardTitle>
-          </CardHeader>
-          <CardContent>
-            <div className="space-y-3">
-              {masters.slice(0, 2).map((master) => (
-                <div key={master.id} className="flex items-center gap-3 p-3 rounded-lg bg-muted/50 hover:bg-muted transition-colors">
-                  <Avatar className="h-12 w-12 ring-2 ring-primary/20">
-                    <AvatarImage src={master.avatar} />
-                    <AvatarFallback className="bg-primary text-white font-medium">
-                      {master.name.split(" ").map(n => n[0]).join("")}
-                    </AvatarFallback>
-                  </Avatar>
-                  <div className="flex-1">
-                    <h4 className="font-medium text-sm">{master.name}</h4>
-                    <p className="text-xs text-muted-foreground">{master.specialty}</p>
-                    <div className="flex items-center gap-1 mt-1">
-                      <Icon name="Star" className="text-yellow-500 fill-yellow-500" size={12} />
-                      <span className="text-xs font-medium">{master.rating}</span>
-                      <span className="text-xs text-muted-foreground">({master.reviews})</span>
-                    </div>
-                  </div>
-                </div>
-              ))}
-            </div>
-            <Button
-              variant="link"
-              className="w-full mt-2 text-primary"
-              onClick={() => setActiveTab("masters")}
-            >
-              Все мастера →
-            </Button>
-          </CardContent>
-        </Card>
 
         <Card>
           <CardHeader className="pb-3">

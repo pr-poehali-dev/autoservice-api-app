@@ -56,7 +56,7 @@ export const TabsContent = ({
   return (
     <>
       {activeTab === "home" && (
-        <HomeTab setActiveTab={setActiveTab} masters={masters} />
+        <HomeTab setActiveTab={setActiveTab} />
       )}
 
       {(activeTab === "services" || activeTab === "booking") && (
