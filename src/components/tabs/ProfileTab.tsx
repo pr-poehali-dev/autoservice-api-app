@@ -6,6 +6,8 @@ import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { Switch } from "@/components/ui/switch";
 import { Label } from "@/components/ui/label";
 import Icon from "@/components/ui/icon";
+import { notificationsApi } from "@/lib/api";
+import { useToast } from "@/hooks/use-toast";
 
 interface ProfileTabProps {
   setActiveTab: (tab: string) => void;
@@ -22,6 +24,28 @@ export const ProfileTab = ({ setActiveTab, serviceHistoryLength }: ProfileTabPro
     emailNotifications: true,
     pushNotifications: true
   });
+  const { toast } = useToast();
+
+  const handleSettingsChange = async (key: string, value: boolean) => {
+    const updatedSettings = { ...notificationSettings, [key]: value };
+    setNotificationSettings(updatedSettings);
+
+    try {
+      await notificationsApi.updateSettings(updatedSettings);
+      toast({
+        title: "Успешно",
+        description: "Настройки уведомлений обновлены"
+      });
+    } catch (error) {
+      console.error('Failed to update settings:', error);
+      setNotificationSettings(notificationSettings);
+      toast({
+        title: "Ошибка",
+        description: "Не удалось сохранить настройки",
+        variant: "destructive"
+      });
+    }
+  };
 
   return (
     <div className="animate-fade-in">
@@ -111,9 +135,7 @@ export const ProfileTab = ({ setActiveTab, serviceHistoryLength }: ProfileTabPro
                         <Switch 
                           id="ready"
                           checked={notificationSettings.readyNotifications}
-                          onCheckedChange={(checked) => 
-                            setNotificationSettings({...notificationSettings, readyNotifications: checked})
-                          }
+                          onCheckedChange={(checked) => handleSettingsChange('readyNotifications', checked)}
                         />
                       </div>
 
@@ -127,9 +149,7 @@ export const ProfileTab = ({ setActiveTab, serviceHistoryLength }: ProfileTabPro
                         <Switch 
                           id="progress"
                           checked={notificationSettings.progressNotifications}
-                          onCheckedChange={(checked) => 
-                            setNotificationSettings({...notificationSettings, progressNotifications: checked})
-                          }
+                          onCheckedChange={(checked) => handleSettingsChange('progressNotifications', checked)}
                         />
                       </div>
 
@@ -143,9 +163,7 @@ export const ProfileTab = ({ setActiveTab, serviceHistoryLength }: ProfileTabPro
                         <Switch 
                           id="reminder"
                           checked={notificationSettings.reminderNotifications}
-                          onCheckedChange={(checked) => 
-                            setNotificationSettings({...notificationSettings, reminderNotifications: checked})
-                          }
+                          onCheckedChange={(checked) => handleSettingsChange('reminderNotifications', checked)}
                         />
                       </div>
                     </div>
@@ -161,9 +179,7 @@ export const ProfileTab = ({ setActiveTab, serviceHistoryLength }: ProfileTabPro
                         <Switch 
                           id="push"
                           checked={notificationSettings.pushNotifications}
-                          onCheckedChange={(checked) => 
-                            setNotificationSettings({...notificationSettings, pushNotifications: checked})
-                          }
+                          onCheckedChange={(checked) => handleSettingsChange('pushNotifications', checked)}
                         />
                       </div>
 
@@ -175,9 +191,7 @@ export const ProfileTab = ({ setActiveTab, serviceHistoryLength }: ProfileTabPro
                         <Switch 
                           id="sms"
                           checked={notificationSettings.smsNotifications}
-                          onCheckedChange={(checked) => 
-                            setNotificationSettings({...notificationSettings, smsNotifications: checked})
-                          }
+                          onCheckedChange={(checked) => handleSettingsChange('smsNotifications', checked)}
                         />
                       </div>
 
@@ -189,9 +203,7 @@ export const ProfileTab = ({ setActiveTab, serviceHistoryLength }: ProfileTabPro
                         <Switch 
                           id="email"
                           checked={notificationSettings.emailNotifications}
-                          onCheckedChange={(checked) => 
-                            setNotificationSettings({...notificationSettings, emailNotifications: checked})
-                          }
+                          onCheckedChange={(checked) => handleSettingsChange('emailNotifications', checked)}
                         />
                       </div>
                     </div>

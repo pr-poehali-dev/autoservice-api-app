@@ -1,9 +1,11 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import Icon from "@/components/ui/icon";
 import { NotificationCard } from "@/components/NotificationCard";
+import { notificationsApi } from "@/lib/api";
+import { useToast } from "@/hooks/use-toast";
 
 interface Master {
   id: number;
@@ -20,27 +22,47 @@ interface HomeTabProps {
 }
 
 export const HomeTab = ({ setActiveTab, masters }: HomeTabProps) => {
-  const [notifications, setNotifications] = useState([
-    {
-      id: 1,
-      type: "ready" as const,
-      title: "Ваш автомобиль готов!",
-      message: "Замена масла и фильтров завершена. Автомобиль готов к выдаче.",
-      time: "10 минут назад",
-      carModel: "Toyota Camry"
-    },
-    {
-      id: 2,
-      type: "in_progress" as const,
-      title: "Работы в процессе",
-      message: "Диагностика двигателя в работе. Ожидаемое время готовности: 2 часа.",
-      time: "1 час назад",
-      carModel: "Honda Accord"
-    }
-  ]);
+  const [notifications, setNotifications] = useState<any[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
+  const { toast } = useToast();
 
-  const handleCloseNotification = (id: number) => {
-    setNotifications(notifications.filter(n => n.id !== id));
+  useEffect(() => {
+    loadNotifications();
+  }, []);
+
+  const loadNotifications = async () => {
+    try {
+      setIsLoading(true);
+      const data = await notificationsApi.getNotifications();
+      setNotifications(data);
+    } catch (error) {
+      console.error('Failed to load notifications:', error);
+      toast({
+        title: "Ошибка",
+        description: "Не удалось загрузить уведомления",
+        variant: "destructive"
+      });
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  const handleCloseNotification = async (id: number) => {
+    try {
+      await notificationsApi.deleteNotification(id);
+      setNotifications(notifications.filter(n => n.id !== id));
+      toast({
+        title: "Успешно",
+        description: "Уведомление удалено"
+      });
+    } catch (error) {
+      console.error('Failed to delete notification:', error);
+      toast({
+        title: "Ошибка",
+        description: "Не удалось удалить уведомление",
+        variant: "destructive"
+      });
+    }
   };
 
   return (

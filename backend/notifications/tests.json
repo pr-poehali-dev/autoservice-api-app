@@ -1,0 +1,69 @@
+{
+  "tests": [
+    {
+      "name": "Get user notifications",
+      "method": "GET",
+      "path": "/",
+      "headers": {
+        "X-User-Id": "user_1"
+      },
+      "expectedStatus": 200,
+      "expectedBody": {
+        "notifications": "array",
+        "count": "number"
+      },
+      "bodyMatcher": "partial"
+    },
+    {
+      "name": "Mark notification as read",
+      "method": "POST",
+      "path": "/",
+      "headers": {
+        "X-User-Id": "user_1"
+      },
+      "body": {
+        "action": "mark_read",
+        "notification_id": 1
+      },
+      "expectedStatus": 200,
+      "expectedBody": {
+        "success": true,
+        "notification_id": 1
+      },
+      "bodyMatcher": "partial"
+    },
+    {
+      "name": "Update notification settings",
+      "method": "POST",
+      "path": "/",
+      "headers": {
+        "X-User-Id": "user_1"
+      },
+      "body": {
+        "action": "update_settings",
+        "settings": {
+          "readyNotifications": true,
+          "pushNotifications": true
+        }
+      },
+      "expectedStatus": 200,
+      "expectedBody": {
+        "success": true
+      },
+      "bodyMatcher": "partial"
+    },
+    {
+      "name": "Delete notification",
+      "method": "DELETE",
+      "path": "/?id=1",
+      "headers": {
+        "X-User-Id": "user_1"
+      },
+      "expectedStatus": 200,
+      "expectedBody": {
+        "success": true
+      },
+      "bodyMatcher": "partial"
+    }
+  ]
+}
