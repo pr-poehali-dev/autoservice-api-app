@@ -90,31 +90,6 @@ export const HomeTab = ({ setActiveTab }: HomeTabProps) => {
           </div>
         )}
 
-        <Card>
-          <CardHeader className="pb-3">
-            <CardTitle className="font-heading flex items-center gap-2">
-              <Icon name="MapPin" className="text-secondary" size={20} />
-              Контакты
-            </CardTitle>
-          </CardHeader>
-          <CardContent className="space-y-3 text-sm">
-            <div className="flex items-start gap-3">
-              <Icon name="Phone" className="text-primary mt-0.5" size={18} />
-              <div>
-                <p className="font-medium">+7 (999) 123-45-67</p>
-                <p className="text-muted-foreground text-xs">Ежедневно 9:00 - 21:00</p>
-              </div>
-            </div>
-            <div className="flex items-start gap-3">
-              <Icon name="MapPin" className="text-primary mt-0.5" size={18} />
-              <div>
-                <p className="font-medium">ул. Автомобильная, 15</p>
-                <p className="text-muted-foreground text-xs">Москва, Россия</p>
-              </div>
-            </div>
-          </CardContent>
-        </Card>
-
         <div className="grid grid-cols-2 gap-3">
           <Button
             onClick={() => setActiveTab("services")}
@@ -147,6 +122,31 @@ export const HomeTab = ({ setActiveTab }: HomeTabProps) => {
             <span className="font-medium">Профиль</span>
           </Button>
         </div>
+
+        <Card>
+          <CardHeader className="pb-3">
+            <CardTitle className="font-heading flex items-center gap-2">
+              <Icon name="MapPin" className="text-secondary" size={20} />
+              Контакты
+            </CardTitle>
+          </CardHeader>
+          <CardContent className="space-y-3 text-sm">
+            <div className="flex items-start gap-3">
+              <Icon name="Phone" className="text-primary mt-0.5" size={18} />
+              <div>
+                <p className="font-medium">+7 (999) 123-45-67</p>
+                <p className="text-muted-foreground text-xs">Ежедневно 9:00 - 21:00</p>
+              </div>
+            </div>
+            <div className="flex items-start gap-3">
+              <Icon name="MapPin" className="text-primary mt-0.5" size={18} />
+              <div>
+                <p className="font-medium">ул. Автомобильная, 15</p>
+                <p className="text-muted-foreground text-xs">Москва, Россия</p>
+              </div>
+            </div>
+          </CardContent>
+        </Card>
       </div>
     </div>
   );
