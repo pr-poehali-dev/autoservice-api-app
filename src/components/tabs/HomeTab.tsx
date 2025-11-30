@@ -64,7 +64,7 @@ export const HomeTab = ({ setActiveTab }: HomeTabProps) => {
           className="w-full h-full object-cover"
         />
         <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/30 to-transparent" />
-        <div className="absolute top-4 left-4 bg-white/95 backdrop-blur-sm rounded-2xl p-3 shadow-lg">
+        <div className="absolute top-4 left-4 bg-white/50 backdrop-blur-sm rounded-2xl p-3 shadow-lg animate-scale-in">
           <img
             src="https://cdn.poehali.dev/files/6366661c-f712-4802-9b11-27e5626aca36.png"
             alt="HEVSR"
